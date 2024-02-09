@@ -11,7 +11,7 @@ Verify python is installed by running `python` from a terminal session, it may b
 
 Clone repository using git to local machine.
 
-`git clone https://github.com/anettleship/adrian-al-techtest-app.git`
+`git clone https://github.com/anettleship/guitar_strum_patterns.git`
 
 Using your terminal, cd into the project folder adrian-al-testtest-app.
 
