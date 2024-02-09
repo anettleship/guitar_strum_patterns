@@ -5,26 +5,13 @@
     <form action="{{ form_action_url }}" method="post">
 
       <div class="form-group"> 
-        <div class="mb-3">
-          <label for="nhs_number" class="form-label">NHS Number</label>
-          <input class="form-control" id="nhs_number" name="nhs_number" placeholder="123456789">
-        </div>
-
         <div class="input-group">
           <div class="mb-3">
             <label for="first_name" class="form-label">First Name</label>
-            <input class="form-control" id="first_name" name="first_name">
-          </div>
-          <div class="mb-3">
-            <label for="last_name" class="form-label">Last Name</label>
-            <input class="form-control" id="last_name" name="last_name" >
+            <input class="form-control" id="strum_pattern" name="strum_pattern">
           </div>
         </div>
 
-        <label class="control-label" for="date_of_birth">Date of Birth</label>
-        <div class="mb-3">
-          <input class="form-control" id="date_of_birth" name="date_of_birth" placeholder="DD/MM/YYYY" type="date"/>
-        </div>
         <div class="mb-3">
           <button class="btn btn-primary" name="submit" type="submit">Submit</button>
         </div>

@@ -117,7 +117,7 @@ For cases in the application where a response or validation can include one of a
 
 The t2lilfestylechecker blueprint is set up to start from the root of the application. The user is presented with a login form from the "/" route. 
 
-On entering correct details, these are posted to the "validate_login" route, which handles placing a call to the external api configured in environment variables. Code for these operations is contained in the ExternalValidationHandler class, which is initialised with data from the form post, and which will query the external api when the validate_details() method is called. 
+On entering correct details, these are posted to the "generate" route, which handles placing a call to the external api configured in environment variables. Code for these operations is contained in the ExternalValidationHandler class, which is initialised with data from the form post, and which will query the external api when the validate_details() method is called. 
 
 On successful validation, the user is logged in and their age saved to the flask session object for later. They are then redirected to a questionnaire, or a failure message if the details provided do not match the conditions specified in the requirements document. 
 

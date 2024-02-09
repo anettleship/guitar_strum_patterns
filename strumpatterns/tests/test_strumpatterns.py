@@ -31,9 +31,7 @@ def test_strumpatterns_index_route_should_return_sucess_with_expected_html_eleme
         soup = BeautifulSoup(response.data, "html.parser")
         assert response.status_code == 200
         assert soup.title.string == form_title
-        assert soup.find(name="input", attrs={"name": "first_name"})
-        assert soup.find(name="input", attrs={"name": "last_name"})
-        assert soup.find(name="input", attrs={"name": "date_of_birth"})
+        assert soup.find(name="input", attrs={"name": "strum_pattern"})
         assert soup.find(name="button", attrs={"name": "submit"})
         assert soup.find(
             "form", {"action": url_for("strumpatterns.validate"), "method": "post"}
@@ -73,7 +71,7 @@ def test_strumpatterns_calculate_score_route_should_redirect_to_index_when_user_
 #     question_data_path = os.environ.get("QUESTION_DATA_PATH")
 #     questionnaire_handler = QuestionnaireHandler(question_data_path)
 
-#     with app.test_request_context("/validate_login", method="POST"):
+#     with app.test_request_context("/generate", method="POST"):
 #         with app.test_client() as test_client:
 #             test_user = User("123456789")
 #             login_user(test_user)

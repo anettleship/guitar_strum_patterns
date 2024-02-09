@@ -40,74 +40,33 @@ def static_js(filename):
     return send_from_directory(f"../{application_name}/static/js", filename)
 
 
-@strumpatterns.route("/validate_login", methods=["POST"])
+@strumpatterns.route("/generate", methods=["POST"])
 def validate():
-    nhs_number = request.form["nhs_number"]
-    first_name = request.form["first_name"]
-    last_name = request.form["last_name"]
-    date_of_birth = request.form["date_of_birth"]
+    strum_pattern = request.form["strum_pattern"]
 
     with current_app.app_context():
-        validator = ExternalValidationHandler(
-            nhs_number, first_name, last_name, date_of_birth
-        )
+        generator = StrumPatternGenerator(strum_pattern)
 
-    result = validator.validate_details()
+    result = generator.generate()
 
-    if not result == external_api_login_results["found"]:
+    if not result:
         language = os.environ.get("LANGUAGE")
-
-        questionnaire_title = os.environ.get("LOGIN_FORM_TITLE")
+        title = os.environ.get("LOGIN_FORM_TITLE")
         template = jinja_env.get_template("message.html")
         return template.render(
-            title=questionnaire_title,
-            message=get_localised_message(result, language)
+            title=title,
+            message=f"A message would be generated in the following language: {language}."
         )
 
-    obfuscate_nhs_number = obfuscate_string_base64(nhs_number)
-    user = User(obfuscate_nhs_number)
-    session["user_age"] = validator.user_age
-    login_user(user)
-    return redirect("questionnaire")
-
-
-@strumpatterns.route("/questionnaire")
-@login_required
-def questionnaire():
-    question_data_path = os.environ.get("QUESTION_DATA_PATH")
-    questionnaire_handler = QuestionnaireHandler(question_data_path)
-
-    template = jinja_env.get_template("questionnaire.html")
-    questionnaire_title = os.environ.get("QUESTION_FORM_TITLE")
-    form_action = url_for(f"{application_name}.calculate")
+    template = jinja_env.get_template("pattern.html")
+    pattern_title = os.environ.get("PATTERN_TITLE")
     return template.render(
-        title=questionnaire_title,
-        form_action_url=form_action,
-        questionnaire=questionnaire_handler.question_data,
+        title=pattern_title,
+        image=result,
     )
 
 
-@strumpatterns.route("/calculate_score", methods=["POST"])
+@strumpatterns.route("/login_required")
 @login_required
-def calculate():
-    age = session["user_age"]
-    question_data_path = os.environ.get("QUESTION_DATA_PATH")
-    questionnaire_handler = QuestionnaireHandler(question_data_path)
-    answers = list()
-
-    for index, question in enumerate(request.form):
-        if index >= len(questionnaire_handler.question_data["questions"]):
-            break
-        answer = request.form[question]
-        answers.append(answer)
-
-    final_message = questionnaire_handler.caluculate_message(age, answers)
-
-    logout_user()
-
-    questionnaire_title = os.environ.get("QUESTION_FORM_TITLE")
-    template = jinja_env.get_template("message.html")
-    return template.render(
-        title=questionnaire_title,
-        message=final_message
-    )
+def login_required():
+    return "logged in"
