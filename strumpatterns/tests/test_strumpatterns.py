@@ -23,7 +23,7 @@ def test_strumpatterns_should_exit_with_zero_length_secret_key():
 def test_strumpatterns_index_route_should_return_sucess_with_expected_html_elements():
     app = create_app(Config(Stage.testing))
 
-    form_title = os.environ.get("LOGIN_FORM_TITLE")
+    form_title = os.environ.get("GENERATOR_TITLE")
 
     with app.test_client() as test_client:
         response = test_client.get("/")
@@ -34,7 +34,7 @@ def test_strumpatterns_index_route_should_return_sucess_with_expected_html_eleme
         assert soup.find(name="input", attrs={"name": "strum_pattern"})
         assert soup.find(name="button", attrs={"name": "submit"})
         assert soup.find(
-            "form", {"action": url_for("strumpatterns.validate"), "method": "post"}
+            "form", {"action": url_for("strumpatterns.generate"), "method": "post"}
         )
 
 
@@ -63,3 +63,31 @@ def test_strumpatterns_login_route_should_redirect_to_root():
 
         assert response.status_code == 302
         assert response.location == url_for("strumpatterns.index") 
+
+
+def test_strumpatterns_generate_route_should_return_posted_form_text_in_the_rendered_page():
+    app = create_app(Config(Stage.testing))
+
+    form_data = {
+        "strum_pattern": "123456789",
+    }
+
+    with app.test_client() as test_client:
+        response = test_client.post("/generate", data=form_data)
+        soup = BeautifulSoup(response.data, "html.parser")
+    assert response.status_code == 200
+    assert soup.find(id="pattern_text")
+
+
+def test_strumpatterns_generate_route_should_return_a_strum_pattern_image_id_in_the_rendered_page():
+    app = create_app(Config(Stage.testing))
+
+    form_data = {
+        "strum_pattern": "123456789",
+    }
+
+    with app.test_client() as test_client:
+        response = test_client.post("/generate", data=form_data)
+        soup = BeautifulSoup(response.data, "html.parser")
+    assert response.status_code == 200
+    assert soup.find(id="pattern_image")
