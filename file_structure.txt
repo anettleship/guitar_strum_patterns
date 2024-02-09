@@ -1,0 +1,41 @@
+adrian-al-techtest-app
+|
+|   .env - stores locally configured environment variables, not committed to source control, copy template.env to make your own.
+|   .gitignore - specifies files which git should ignore, such as .env 
+|   app.py - the start point of our flask app, run this to run the flask application locally
+|   Pipfile - used by pipenv, lists dependencies.
+|   Pipfile.lock - used by pipenv
+|   README.md - read this first
+|   requirements.txt - lists all module versions
+|   setup.cfg - used to configure pytest-cov to look at branch coverage
+|   
++---application - files related to standing up our flask application and loading the strumpatterns blueprint
+|       app_factory.py - code that deals with standing up our flask application
+|       auth.py - code that handles setting up our login manager for authentication
+|       config.py - holds a class used to configure our flask application
+|       config_stages.py - holds an enum that defines valid settings for our stage variable in .env - determines actions when Config class is initialised
+|       __init__.py - helps python to discover modules in this folder
+|           
++---env_templates
+|       template.env - template environment variables, readme describes how to copy this to create your own .env file.
+|       
++---strumpatterns - all functionality related to requirements for strumpatterns located here, defines a blueprint for re-use in other applications
+    |   strumpatterns.py - all routes for application blueprint are defined here
+    |   strumpatterns_config.py - holds enums that define valid responses and states for objects and interactions in our project
+    |   __init__.py - helps python to discover modules in this folder
+    |   
+    +---static
+    |   \---js
+    |           testfile.js - our frontend uses Content Delivery Network links for css and js files, this route could accomodate serving static files if required
+    |           
+    +---templates
+    |       base.html - base html jinja template extended by all other templates
+    |       login.html - template for login page form
+    |       message.html - template to return user messages after login and questionnaire form entry
+    |       questionnaire.html - template for questionnaire page form
+    |       
+    +---tests - acceptance tests for the corresponding modules of for test_module_name
+        |   test_strumpatterns.py
+        |   __init__.py - helps python to discover modules in this foldery
+        |   
+        
