@@ -13,12 +13,6 @@ from dotenv import load_dotenv
 from jinja2 import Environment, PackageLoader, select_autoescape
 from application.auth import User
 from .strumpatterns_config import external_api_login_results
-from .external_validation_handler import ExternalValidationHandler
-from .external_validation_handler_helper import (
-    get_localised_message,
-    obfuscate_string_base64,
-)
-from .questionnaire_handler import QuestionnaireHandler
 
 application_name = "strumpatterns"
 
