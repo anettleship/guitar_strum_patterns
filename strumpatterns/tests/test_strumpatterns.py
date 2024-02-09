@@ -46,60 +46,13 @@ def test_strumpatterns_should_serve_static_test_file_from_within_blueprint_stati
     assert response.status_code == 200
 
 
-def test_strumpatterns_questionnaire_route_should_redirect_to_index_when_user_not_logged_in():
+def test_strumpatterns_login_required_route_should_redirect_to_index_when_user_not_logged_in():
     app = create_app(Config(Stage.testing))
 
     with app.test_client() as test_client:
-        response = test_client.get("/questionnaire")
+        response = test_client.get("/login_required")
         assert response.location == url_for('strumpatterns.login')
     assert response.status_code == 401
-
-
-def test_strumpatterns_calculate_score_route_should_redirect_to_index_when_user_not_logged_in():
-    app = create_app(Config(Stage.testing))
-
-    with app.test_client() as test_client:
-        response = test_client.post("/calculate_score")
-        assert response.location == url_for("strumpatterns.login")
-    assert response.status_code == 401
-
-
-# def test_strumpatterns_questionnaire_route_should_return_all_question_and_answer_html_elements_for_logged_in_user():
-#     app = create_app(Config(Stage.testing))
-
-#     question_form_title = os.environ.get("QUESTION_FORM_TITLE")
-#     question_data_path = os.environ.get("QUESTION_DATA_PATH")
-#     questionnaire_handler = QuestionnaireHandler(question_data_path)
-
-#     with app.test_request_context("/generate", method="POST"):
-#         with app.test_client() as test_client:
-#             test_user = User("123456789")
-#             login_user(test_user)
-#             response = test_client.get("/questionnaire")
-
-#             soup = BeautifulSoup(response.data, "html.parser")
-
-#             assert soup.title.string == question_form_title
-
-#             assert len(soup.find_all("input",{"type": "radio", "value": "Yes"})) == 3
-#             assert len(soup.find_all("input",{"type": "radio", "value": "No"})) == 3
-
-#             for question in questionnaire_handler.question_data["questions"]:
-#                 assert soup.find(id=question["name"])
-#                 assert (len(soup.find_all("input",{"type": "radio", "name": f"{question['name']}"})) == 2)
-
-#             assert soup.find(name="button", attrs={"name": "submit"})
-#             assert soup.find("form",{"action": url_for("strumpatterns.calculate"), "method": "post"})
-
-
-def test_strumpatterns_calculate_score_route_should_return_unauthorised_when_user_not_logged_in():
-    app = create_app(Config(Stage.testing))
-
-    with app.test_client() as test_client:
-        response = test_client.post("/calculate_score")
-
-    assert response.status_code == 401
-
 
 
 def test_strumpatterns_login_route_should_redirect_to_root():
