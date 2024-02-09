@@ -30,7 +30,7 @@ adrian-al-techtest-app
     |           
     +---templates
     |       base.html - base html jinja template extended by all other templates
-    |       login.html - template for login page form
+    |       home.html - template for home page form
     |       message.html - template to return user messages after login and questionnaire form entry
     |       questionnaire.html - template for questionnaire page form
     |       

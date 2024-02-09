@@ -24,7 +24,7 @@ jinja_env = Environment(
 
 @strumpatterns.route("/")
 def index():
-    template = jinja_env.get_template("login.html")
+    template = jinja_env.get_template("home.html")
     form_title = os.environ.get("LOGIN_FORM_TITLE")
     validate_url = url_for(f"{application_name}.validate")
     return template.render(title=form_title, form_action_url=validate_url)
