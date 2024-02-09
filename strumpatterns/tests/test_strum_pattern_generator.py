@@ -1,0 +1,2 @@
+from strum_pattern_generator import StrumPatternGenerator
+
