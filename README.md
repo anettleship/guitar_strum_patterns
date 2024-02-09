@@ -1,4 +1,4 @@
-# Guitar Strum Patter Generator Web App
+# Guitar Strum Pattern Generator Web App
 Web application built to render simple guitar strumming patterns:
 
 ## Instructions to install and run on a local machine using the Flask inbuilt testing server:
