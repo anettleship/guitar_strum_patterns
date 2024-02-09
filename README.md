@@ -15,7 +15,7 @@ Clone repository using git to local machine.
 
 Using your terminal, cd into the project folder adrian-al-testtest-app.
 
-`cd adrian-al-techtest-app`
+`cd guitar_strum_patterns`
 
 Install pipenv for python 3:
 
