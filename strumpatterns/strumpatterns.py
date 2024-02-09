@@ -12,7 +12,6 @@ from flask_login import login_required, login_user, logout_user
 from dotenv import load_dotenv
 from jinja2 import Environment, PackageLoader, select_autoescape
 from application.auth import User
-from .strumpatterns_config import external_api_login_results
 
 application_name = "strumpatterns"
 
