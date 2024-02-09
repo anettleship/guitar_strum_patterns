@@ -1,5 +1,5 @@
-# adrian-al-techtest-app
-Web application built for a job application tech test:
+# Guitar Strum Patter Generator Web App
+Web application built to render simple guitar strumming patterns:
 
 ## Instructions to install and run on a local machine using the Flask inbuilt testing server:
 
